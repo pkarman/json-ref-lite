@@ -64,7 +64,7 @@
     };
     //return eval( 'try{'+evalstr+'}catch(e){}')
     this.replace = function(json, ids, root) {
-      var jsonpointer, k, ref, ref1, ref2, results, str, url, v;
+      var k, ref, ref1, ref2, results, v;
       results = [];
       for (k in json) {
         v = json[k];
@@ -83,25 +83,6 @@
             ref = this.replace(ref, ids, root);
           } else if (ids[ref] != null) {
             json[k] = ids[ref];
-          } else if (typeof request === !"undefined" && String(ref).match(/^https?:/)) {
-            url = ref.match(/^[^#]*/);
-            if (!this.cache[url]) {
-              this.cache[url] = this.resolve(JSON.parse(request("GET", url).getBody().toString()));
-            }
-            json[k] = this.cache[url];
-            if (ref.match(this.pathtoken)) {
-              jsonpointer = ref.replace(new RegExp(".*" + pathtoken), this.pathtoken);
-              if (jsonpointer.length) {
-                json[k] = this.get_json_pointer(jsonpointer, json[k]);
-              }
-            }
-          } else if (typeof fs === !"undefined" && fs.existsSync(ref)) {
-            str = fs.readFileSync(ref).toString();
-            if (str.match(/module\.exports/)) {
-              json[k] = this.resolve(require(ref));
-            } else {
-              json[k] = this.resolve(JSON.parse(str));
-            }
           } else if (String(ref).match(new RegExp('^' + this.pathtoken))) {
             if (this.debug) {
               console.log("checking " + ref + " pathtoken");
