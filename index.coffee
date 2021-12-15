@@ -1,6 +1,10 @@
 # slightly odd requires because of browserify compatibility
-fs      = ( if not window? then require 'fs' else false )
-request = ( if fs and fs.existsSync __dirname+'/../sync-request' then require 'sync-request' else false )
+# fs      = ( if not window? then require 'fs' else false )
+# request = ( if fs and fs.existsSync __dirname+'/../sync-request' then require 'sync-request' else false )
+if not window?
+  fs = require 'fs'
+if fs and fs.existsSync __dirname+'/../sync-request'
+  request = require 'sync-request'
 expr    = require 'property-expr'
 
 module.exports = ( () ->
@@ -49,14 +53,14 @@ module.exports = ( () ->
           ref = @.replace ref, ids, root
         else if ids[ ref ]?
           json[k] = ids[ ref ] 
-        else if request and String(ref).match /^https?:/
+        else if typeof request is not "undefined" and String(ref).match /^https?:/
           url = ref.match(/^[^#]*/)
           @.cache[url] = @.resolve JSON.parse request("GET",url).getBody().toString() if not @.cache[url]
           json[k] = @.cache[url]
           if ref.match( @.pathtoken )
             jsonpointer = ref.replace new RegExp(".*"+pathtoken),@.pathtoken
             json[k] = @.get_json_pointer jsonpointer, json[k] if jsonpointer.length 
-        else if fs and fs.existsSync ref 
+        else if typeof fs is not "undefined" and fs.existsSync ref
           str = fs.readFileSync(ref).toString()
           if str.match /module\.exports/
             json[k] = @.resolve require ref
