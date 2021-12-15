@@ -76,9 +76,6 @@
           if (this.debug && typeof ref === 'string') {
             console.log("checking " + k + " -> " + ref);
           }
-          if (Object.keys(v).length > 1) {
-            console.error(`json-ref-lite error: object '${k}' contains reference as well as other properties..ignoring properties`);
-          }
           if (Array.isArray(ref)) {
             ref = this.replace(ref, ids, root);
           } else if (ids[ref] != null) {
