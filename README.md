@@ -1,3 +1,9 @@
+# NOTE
+
+This fork of json-ref-lite removes `fs` and `sync-request` depedencies. All `$ref` resolution is local only.
+
+# Original README
+
 Extremely light weight way to resolve jsonschema '$ref' references & inheritance: create circular/graphs, fractals from json (browser/coffeescript/javascript).
 
 <img alt="" src="https://raw.githubusercontent.com/coderofsalvation/jsongraph/master/logo.png"/>

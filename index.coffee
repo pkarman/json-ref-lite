@@ -1,10 +1,6 @@
 # slightly odd requires because of browserify compatibility
 # fs      = ( if not window? then require 'fs' else false )
 # request = ( if fs and fs.existsSync __dirname+'/../sync-request' then require 'sync-request' else false )
-if not window?
-  fs = require 'fs'
-if fs and fs.existsSync __dirname+'/../sync-request'
-  request = require 'sync-request'
 expr    = require 'property-expr'
 
 module.exports = ( () ->

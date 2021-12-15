@@ -3,15 +3,7 @@
   // slightly odd requires because of browserify compatibility
   // fs      = ( if not window? then require 'fs' else false )
   // request = ( if fs and fs.existsSync __dirname+'/../sync-request' then require 'sync-request' else false )
-  var expr, fs, request;
-
-  if (typeof window === "undefined" || window === null) {
-    fs = require('fs');
-  }
-
-  if (fs && fs.existsSync(__dirname + '/../sync-request')) {
-    request = require('sync-request');
-  }
+  var expr;
 
   expr = require('property-expr');
 
