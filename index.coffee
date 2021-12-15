@@ -43,8 +43,6 @@ module.exports = ( () ->
       if v? and v[reftoken]? 
         ref = v[reftoken]
         console.log "checking "+k+" -> "+ref if @.debug and typeof ref is 'string'
-        if Object.keys(v).length > 1 
-          console.error "json-ref-lite error: object '#{k}' contains reference as well as other properties..ignoring properties" 
         if Array.isArray ref
           ref = @.replace ref, ids, root
         else if ids[ ref ]?
