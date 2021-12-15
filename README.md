@@ -2,6 +2,8 @@
 
 This fork of json-ref-lite removes `fs` and `sync-request` depedencies. All `$ref` resolution is local only.
 
+This solves the webpack error about `Critical dependency: the request of a dependency is an expression error`.
+
 # Original README
 
 Extremely light weight way to resolve jsonschema '$ref' references & inheritance: create circular/graphs, fractals from json (browser/coffeescript/javascript).
